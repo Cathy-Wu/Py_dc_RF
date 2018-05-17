@@ -1,0 +1,318 @@
+﻿*** Settings ***
+Library           SeleniumLibrary
+Library           DatabaseLibrary
+Library           OperatingSystem
+Resource          fbjf_commom.txt
+
+*** Test Cases ***
+login
+    [Setup]    Setup
+    Comment    Log    1.杀死浏览器进程
+    Comment    run    taskkill /f /im chromedriver.exe
+    Comment    Log    2.连接数据库
+    Comment    Open Browser    http://test.qmtjr.com    chrome
+    Comment    Log    4.打开浏览器
+    Comment    Log    3.清理数据库内容
+    Maximize Browser Window
+    Log    4.等待页面出现
+    Log    5.点击登录
+    Click Link    xpath=//div/a[@href="/login"]
+    Wait Until Element Is Visible    PassWord
+    Comment    Wait Until Element Is Visible    class="sbmBtn
+    Log    6.输入账户名
+    Input Text    Mobile    1350000000
+    Log    7.输入密码
+    Input Text    PassWord    123456
+    Log    7.1点击记住密码
+    Comment    Select From List By Value    xpath=//label/input    1
+    Log    8.点击登录
+    Click Button    登 录
+    Log    9.验证登录成功
+    Comment    ${x}    Get Text    xpath=/html/body/div[2]/div[2]/div/div[1]/div/div[2]/h4
+    Comment    Should Contain    ${x}    让精神抖擞起来
+    Comment    Should Start With    ${x}    下午好
+    Sleep    5
+    Log    10.点击充值
+    Comment    Click Element    css=div>a[href="/Reapal/DepositApply"]
+    Click Element    xpath=//div/a[@class='btn-primary']
+    Comment    Click Element    jquery=a:contains("充 值")
+    Wait Until Page Contains    快捷充值    #jquery=div:contains('${name}')
+    Log    11.选择充值方式
+    Comment    PAUSE
+    Click Element    xpath=//a[contains(.,'网银充值')]
+    Log    12.选择充值的银行
+    Click Element    ${bank}
+    Log    12.输入充值的金额
+    Input Text    css=input#amount    100
+    Log    14.点击确定
+    Click Element    css=input.btn-primary
+    Comment    Wait Until Page Contains    无法访问
+    Comment    Close Browser
+    [Teardown]    Teardown
+
+connect_to_databases
+    Log    2.连接数据库
+    Comment    Connect To Database    pymssql    wangdaidb    sa    qmttest01o2    120.24.221.3
+    ...    1433
+
+login_01
+    [Setup]    Setup
+    [Template]    Temple_01
+    13530000000    123456
+    13000000000    123456
+    13071221583    123456
+    [Teardown]    Teardown
+
+pay_02
+    [Setup]    Setup
+    [Template]    Temple_pay_02
+    13538264253    123456    100
+    13071221590    123456    500
+    13071221583    123456    10
+    [Teardown]    Teardown
+
+login_withdrawal
+    [Setup]    Setup_login
+    Comment    Log    1.杀死浏览器进程
+    Comment    run    taskkill /f /im chromedriver.exe
+    Comment    Log    2.连接数据库
+    Comment    Open Browser    http://test.qmtjr.com/    chrome
+    Comment    Log    4.打开浏览器
+    Comment    Log    3.清理数据库内容
+    Comment    Maximize Browser Window
+    Comment    Log    4.等待页面出现
+    Comment    Log    5.点击登录
+    Comment    Click Link    xpath=//div/a[@href="/login"]
+    Comment    Wait Until Element Is Visible    PassWord
+    Comment    Comment    Wait Until Element Is Visible    class="sbmBtn
+    Comment    Log    6.输入账户名
+    Comment    Input Text    Mobile    135000000
+    Comment    Log    7.输入密码
+    Comment    Input Text    PassWord    123456
+    Comment    Log    7.1点击记住密码
+    Comment    Comment    Select From List By Value    xpath=//label/input    1
+    Comment    Log    8.点击登录
+    Comment    Click Button    登 录
+    Comment    Log    9.验证登录成功
+    Comment    Wait Until Page Contains    账户总览
+    Comment    ${x}    Get Text    xpath=//h4[contains(.,'吴莉')]
+    Comment    Should Contain    ${x}    精神
+    Comment    Comment    Should Start With    ${x}    下午好
+    Comment    Comment    Sleep    5
+    Click Element    xpath=//a[@class='btn-warning']    #css=div a[class='btn-warning']
+    Wait Until Element Is Visible    xpath=//a[contains(.,'提现申请')]
+    Comment    PAUSE
+    Click Element    css=span[class='check']
+    Input Text    css=input[id='money']    0
+    Click Button    xpath=//input[contains(@id,'btnNext' )]
+    Page Should Contain    操作提示：提现金额必须不小于100元
+    [Teardown]    Teardown
+
+login_ recharge
+    [Setup]    Setup_login
+    Comment    Log    1.杀死浏览器进程
+    Comment    run    taskkill /f /im chromedriver.exe
+    Comment    Log    2.连接数据库
+    Comment    Open Browser    http://test.qmtjr.com    chrome
+    Comment    Log    4.打开浏览器
+    Comment    Log    3.清理数据库内容
+    Comment    Maximize Browser Window
+    Comment    Log    4.等待页面出现
+    Comment    Log    5.点击登录
+    Comment    Click Link    xpath=//div/a[@href="/login"]
+    Comment    Wait Until Element Is Visible    PassWord
+    Comment    Comment    Wait Until Element Is Visible    class="sbmBtn
+    Comment    Log    6.输入账户名
+    Comment    Input Text    Mobile    135000000
+    Comment    Log    7.输入密码
+    Comment    Input Text    PassWord    123456
+    Comment    Log    7.1点击记住密码
+    Comment    Comment    Select From List By Value    xpath=//label/input    1
+    Comment    Log    8.点击登录
+    Comment    Click Button    登 录
+    Comment    Log    9.验证登录成功
+    Comment    ${x}    Get Text    xpath=//h4[contains(.,'吴莉')]
+    Comment    Should Contain    ${x}    让精神抖擞起来
+    Comment    Should Start With    ${x}    下午好
+    Sleep    5
+    Log    10.点击充值
+    Comment    Click Element    css=div>a[href="/Reapal/DepositApply"]
+    Click Element    xpath=//div/a[@class='btn-primary']
+    Comment    Click Element    jquery=a:contains("充 值")
+    Wait Until Page Contains    快捷充值
+    Log    11.选择充值方式
+    Comment    PAUSE
+    Click Element    xpath=//a[contains(.,'网银充值')]
+    Log    12.选择充值的银行
+    Click Element    ${bank}
+    Log    12.输入充值的金额
+    Input Text    css=input#amount    100
+    Log    14.点击确定
+    Click Element    css=input.btn-primary
+    Comment    Wait Until Page Contains    无法访问
+    Comment    Close Browser
+    [Teardown]    Teardown
+
+login_catalog
+    [Setup]    Setup_login
+    Click Element    xpath=//a[contains(.,'融宝开户')]
+    ${n}    Get Window Handles
+    Select Window    ${n[-1]}
+    Comment    Get Window Handles
+    Comment    Comment    PAUSE
+    Comment    Select Window    url='http://test.qmtjr.com/reapal/signed'
+    ${x}    Get Element Attribute    xpath=//input[@value="已开通融宝账户"]    value
+    Should Contain    ${x}    已开通融宝账户
+    Comment    Select Window
+    Comment    Click Element    jquery=a:contains("充值管理")
+    Comment    ${y}    Get Text    css=a#getCode
+    Comment    Should Contain    ${y}    获取验证码
+    Comment    Go Back
+    Comment    Click Element    css=a[href*='reapal/withdraw']
+    Comment    ${z}    Get Text    jquery=div:contains("可提金额：")
+    Comment    Should Contain    ${z}    可提金额
+    Comment    Go Back
+    Comment    Click Element    jquery=a:contains('投资记录')
+    Comment    ${m}    Get Text    jquery=div:contains("预期收益(元)")
+    Comment    Should Contain    ${m}    预期收益(元)
+    Comment    Go Back
+    Comment    Click Element    jquery=a:contains('资金记录')
+    Comment    ${m}    Get Text    jquery=div:contains("累计提现(元)")
+    Comment    Should Contain    ${m}    累计提现(元)
+    Comment    Go Back
+    Comment    Click Element    css=li:nth-child(3)>ul>li:nth-child(3)
+    Comment    ${n}    Get Text    jquery=th:contains("充值方式")
+    Comment    Should Contain    ${n}    充值方式
+    Comment    Go Back
+    Comment    Click Element    css=li:nth-child(3)>ul>li:nth-child(4)
+    Comment    ${l}    Get Text    jquery=label:contains("提现状")
+    Comment    Should Contain    ${l}    提现
+    Comment    Go Back
+    Comment    Click Element    css=li:nth-child(4)>ul>li:nth-child(1)
+    Comment    ${p}    Get Text    css=div.panel-body.padding30
+    Comment    Should Contain    ${p}    用户头像
+    Comment    Go Back
+    Comment    Click Element    css=li:nth-child(4)>ul>li:nth-child(2)
+    Comment    Alert Should Be Present    当前模块正在建设中,敬请期待
+    Comment    Go Back
+    [Teardown]    Teardown
+
+login_invest
+    [Setup]    Setup_login
+    [Template]
+    Click Element    css=tr:nth-child(2)>td:nth-child(6)
+    ${x1}    Get Text    css=div.byt_line.clearfix
+    Should Contain    ${x1}    预期年化收益
+    Comment    ${x2}    Get Element Attribute    jquery=a:contains('还款完成')    style
+    ${x2}    Get Element Attribute    jquery=a:contains('还款完成')    href
+    Comment    Should Contain    ${x2}    cursor: not-allowed;
+    Should Be Equal    ${x2}    ${None}
+    ${x3}    Get Text    jquery=a:contains('还款完成')
+    Should Contain    ${x3}    还款完成
+    Click Element    jquery=a:contains("我要充值")
+    ${x4}    Get Text    css=div.panel-body,padding30
+    Should Contain    ${x4}    选择银行：
+    [Teardown]    Teardown
+
+login_bank_information
+    [Setup]    Setup_login
+    Click Element    css=li:nth-child(4)>ul>li:nth-child(3)
+    Comment    ${m}    Get text    jquery=a:contains("添加银行卡")
+    Comment    Should Contain    ${m}    添加银行卡
+    Click Element    jquery=a:contains("添加银行卡")
+    Sleep    2
+    Select Frame    css=iframe[id="layui-layer-iframe1"]
+    Select From List By Index    css=select#bankCode    2
+    Input Text    css=input#bankAccountNo    6214850000000000
+    Input Text    css=input#mobilePhone    130000003
+    Select From List By Label    css=select#accountProvince    湖北
+    Select From List By Value    jquery=[id="accountCity"]    咸宁
+    Input Text    jquery=[id="branch"]    嘉鱼分行
+    Input Text    jquery=[id="subbranch"]    渡普支行
+    Click Button    jquery=input:contains("确认提交")
+    Unselect Frame
+    [Teardown]    Teardown
+
+*** Keywords ***
+Temple_01
+    [Arguments]    ${mobile}    ${passwd}
+    Comment    Log    1.杀死浏览器进程
+    Comment    run    taskkill /f /im chromedriver.exe
+    Comment    Log    2.连接数据库
+    Open Browser    ${url}    chrome
+    Comment    Log    4.打开浏览器
+    Comment    Log    3.清理数据库内容
+    Maximize Browser Window
+    Log    4.等待页面出现
+    Log    5.点击登录
+    Click Link    xpath=//div/a[@href="/login"]
+    Comment    Wait Until Element Is Visible    PassWord
+    Comment    Wait Until Element Is Visible    class="sbmBtn
+    Sleep    3
+    Log    6.输入账户名
+    Clear Element Text    Mobile
+    Input Text    Mobile    ${mobile}
+    Log    7.输入密码
+    Clear Element Text    PassWord
+    Input Text    PassWord    ${passwd}
+    Log    7.1点击记住密码
+    Comment    Select From List By Value    xpath=//label/input    1
+    Log    8.点击登录
+    Click Button    登 录
+    Comment    Log    9.验证登录成功
+    Comment    ${x}    Get Text    xpath=//div/h4[@class='say-hello']
+    Comment    Should Contain    ${x}    让精神抖擞起来
+    Comment    Comment    Should Start With    ${x}    下午好
+    Log    10.点击充值
+    Click Button    css=a.btn-primary
+    Log    11.选择充值方式
+    Click Button    css=a[href='/Reapal/Deposit']
+    Log    12.选择充值的银行
+    Click Element    xpath=//form//div/a[9]
+    ${x}    Get Text    xpath=//form//div/a[9]
+    Log    12.输入充值的金额
+    Input Text    css=input#amount    222
+    Log    14.点击确定
+    Click Element    css=input.btn-primary
+    Comment    Close Browser
+
+Temple_pay_02
+    [Arguments]    ${name}    ${passwd}    ${money}
+    Open Browser    ${url}    chrome
+    Maximize Browser Window
+    Sleep    3
+    Log    4.等待页面出现
+    Log    5.点击登录
+    Click Link    xpath=//div/a[@href="/login"]
+    Wait Until Element Is Visible    PassWord
+    Comment    Wait Until Element Is Visible    class="sbmBtn
+    Log    6.输入账户名
+    Input Text    Mobile    ${name}
+    Log    7.输入密码
+    Input Text    PassWord    ${passwd}
+    Log    7.1点击记住密码
+    Comment    Select From List By Value    xpath=//label/input    1
+    Log    8.点击登录
+    Click Button    登 录
+    Log    9.验证登录成功
+    Comment    ${x}    Get Text    xpath=/html/body/div[2]/div[2]/div/div[1]/div/div[2]/h4
+    Comment    Should Contain    ${x}    让精神抖擞起来
+    Comment    Should Start With    ${x}    下午好
+    Sleep    5
+    Log    10.点击充值
+    Comment    Click Element    css=div>a[href="/Reapal/DepositApply"]
+    Click Element    xpath=//div/a[@class='btn-primary']
+    Comment    Click Element    jquery=a:contains("充 值")
+    Wait Until Page Contains    快捷充值
+    Log    11.选择充值方式
+    Comment    PAUSE
+    Click Element    xpath=//a[contains(.,'网银充值')]
+    Log    12.选择充值的银行
+    Click Element    ${bank}
+    ${x}    Get Text    ${bank}
+    Log    12.输入充值的金额
+    Input Text    css=input#amount    ${money}
+    Log    14.点击确定
+    Click Element    css=input.btn-primary
+    Comment    Wait Until Page Contains    无法访问
+    Comment    Close Browser

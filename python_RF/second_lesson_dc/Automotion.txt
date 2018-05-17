@@ -1,0 +1,128 @@
+﻿*** Settings ***
+Library           SeleniumLibrary
+Library           OperatingSystem
+Library           DatabaseLibrary
+Resource          mt_common.txt
+Library           AutoItLibrary
+
+*** Test Cases ***
+Buy_01
+    Comment    Log    1.连接数据库
+    Comment    run    taskkill /f /im chromedriver.exe
+    Comment    Connect To Database    pymysql    scott    tester    passwd    192.168.0000
+    ...    3306    utf8
+    Comment    Log    2.清除数据库里面的数据
+    Comment    Execute Sql String    delete from order_item;
+    Comment    Log    4.输入网址
+    Comment    Open Browser    http://192.168.80.130/mt/#/home    chrome
+    Log    5.点击自动化测试课程
+    Click Element    Xpath=//a[contains(.,'自动化')]
+    Log    5.5进行显示等待
+    Wait Until Element Is Visible    css=td input[id=Quantity]
+    Log    6.输入购买产品
+    Input Text    Xpath=//input[@id="ProductName"]    xiaomi
+    Comment    Execute Javascript    document.getElementById('ProductName').value='sangxing'    #id定位符
+    Log    7.输入购买数量
+    Input Text    css=td input[id=Quantity]    220
+    Log    8.点击提交
+    Click Button    jquery=#submitBtn
+    Log    9.验证购物车里面添加的信息
+    Wait Until Page Contains    你购买了xiaomi，一共220件。
+    ${x}    Get Text    id=msg
+    ${y}    Get Text    id=Pr
+    Should Contain    ${x}    购买了
+    Log    10.验证购物车信息正确
+    Select Frame    id=fra
+    Select From List By Label    id=buy    产品:xiaomi,数量:220
+    Unselect Frame
+    Log    11.验证DB记录正确
+    Wait Until Keyword Succeeds    30    2    Row Count Is Equal To X    select * from order_item where name='xiaomi';    1
+    Log    12.点击付款
+    Click Button    id=pay
+    Handle Alert
+    Log    13.选择银行
+    Select Window    付款
+    Log    14.输入账号
+    Select From List By Index    id=bank    3
+    Log    15.点击付款
+    Input Text    cardno    666666
+    Log    16.点击确定
+    Click Button    付款
+    Log    17.返回主页
+    Select Window
+
+Buy_02
+    [Setup]    Setup
+    [Template]    Template_02
+    huawei    200
+    Iphone    300
+    sangxing    400
+    chuizi    500
+    [Teardown]    Teardown
+
+Buy_03
+    [Setup]    Setup
+    Log    进入自动化测试课程
+    Click Link    自动化测试课程
+    Log    点击上传下载demo页面
+    Sleep    3
+    Click Element    jquery=a:contains("demo")    #C:${/}Users${/}Administrator${/}Desktop${/}android.docx    ${CURDIR}${/}logs${/}log.html
+    Log    点击选择文件    ##绝对路径    #相对路径
+    Wait Until Element Is Visible    id=file
+    Click Element    css=input#file
+    Win Wait    打开    \    30
+    Win Activate    打开
+    Control Set Text    \    \    Edit1    ${CURDIR}${/}logs${/}log.html    #绝对路径
+    Sleep    5
+    Control Click    \    \    Button1
+    Sleep    5
+    Comment    PAUSE
+    [Teardown]    Teardown
+
+*** Keywords ***
+Template_02
+    [Arguments]    ${name}    ${quanity}
+    Comment    Log    1.连接数据库
+    Comment    run    taskkill /f /im chromedriver.exe
+    Comment    Connect To Database    pymysql    scott    tester    passwd    ${IP}
+    ...    3306    utf8
+    Comment    Log    2.清除数据库里面的数据
+    Comment    Execute Sql String    delete from order_item;
+    Comment    Log    4.输入网址
+    Comment    Open Browser    http://${IP}/mt    chrome
+    Log    5.点击自动化测试课程
+    Click Element    Xpath=//a[contains(.,'自动化')]
+    Comment    Comment    PAUSE
+    Log    5.5进行显示等待
+    Wait Until Element Is Visible    css=td input[id=Quantity]
+    Log    6.输入购买产品
+    Input Text    Xpath=//input[@id="ProductName"]    ${name}
+    Log    7.输入购买数量
+    Input Text    css=td input[id=Quantity]    ${quanity}
+    Log    8.点击提交
+    Click Button    jquery=#submitBtn
+    Log    9.验证购物车里面添加的信息
+    Wait Until Page Contains    你购买了${name}，一共${quanity}件。
+    ${x}    Get Text    id=msg
+    ${y}    Get Text    id=Pr
+    Should Contain    ${x}    购买了
+    Log    10.验证购物车信息正确
+    Select Frame    id=fra
+    Select From List By Label    id=buy    产品:${name},数量:${quanity}
+    Unselect Frame
+    Log    11.验证DB记录正确
+    Wait Until Keyword Succeeds    30    2    Row Count Is Equal To X    select * from order_item where name='${name}';    1
+    Comment    Comment    PAUSE
+    Log    12.点击付款
+    Click Button    id=pay
+    Handle Alert
+    Log    13.选择银行
+    Select Window    付款
+    Log    14.输入账号
+    Select From List By Index    id=bank    3
+    Log    15.点击付款
+    Input Text    cardno    666666
+    Log    16.点击确定
+    Click Button    付款
+    Log    17.返回主页
+    Select Window

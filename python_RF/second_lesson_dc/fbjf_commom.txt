@@ -1,0 +1,52 @@
+﻿*** Settings ***
+Library           SeleniumLibrary
+Library           OperatingSystem
+
+*** Variables ***
+${url}            http://test.qmtjr.com/
+${bank}           xpath=//form//div/a[2]
+${name}           1302222222
+${passwd}         123456
+${element}        吴清龙
+
+*** Keywords ***
+Setup
+    Log    1.杀死浏览器进程
+    run    taskkill /f /im chromedriver.exe
+    Log    2.连接数据库
+    Comment    Open Browser    ${url}    chrome
+    Comment    Log    4.打开浏览器
+    Comment    Log    3.清理数据库内容
+    Comment    Maximize Browser Window
+    Comment    Sleep    3
+
+Teardown
+    Close All Browsers
+
+Setup_login
+    Log    1.杀死浏览器进程
+    run    taskkill /f /im chromedriver.exe
+    Log    2.连接数据库
+    Open Browser    http://test.qmtjr.com/    chrome
+    Log    4.打开浏览器
+    Log    3.清理数据库内容
+    Maximize Browser Window
+    Log    4.等待页面出现
+    Log    5.点击登录
+    Click Link    xpath=//div/a[@href="/login"]
+    Wait Until Element Is Visible    PassWord
+    Comment    Wait Until Element Is Visible    class="sbmBtn
+    Log    6.输入账户名
+    Input Text    Mobile    ${name}
+    Log    7.输入密码
+    Input Text    PassWord    ${passwd}
+    Log    7.1点击记住密码
+    Comment    Select From List By Value    xpath=//label/input    1
+    Log    8.点击登录
+    Click Button    登 录
+    Log    9.验证登录成功
+    Wait Until Page Contains    账户总览
+    ${x}    Get Text    xpath=//h4[contains(.,'${element}')]
+    Should Contain    ${x}    ${element}
+    Comment    Should Start With    ${x}    下午好
+    Comment    Sleep    5

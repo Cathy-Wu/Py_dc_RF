@@ -1,0 +1,35 @@
+*** Settings ***
+Library           CSVLibrary
+Library           ExcelLibrary
+
+*** Test Cases ***
+Case_01
+    ${i}    Create List    1    2    ${23}
+    Log    ${i}
+    ${y}    Create List    cathy    love    home
+    ${n}    Create List    abby    is    2
+    Log    ${y}
+    ${z}    Create List    ${i}    ${y}    ${n}
+    Comment    Log    ${z}
+    :FOR    ${m}    IN    @${z}
+    \    log    ${m}
+    :FOR    ${i}    IN RANGE    10
+    \    log    ${i}
+    ${l}    Read Csv File To List    file.csv
+    :FOR    ${b}    IN    @{l}
+    \    Comment    log    ${b}
+    \    Log Many    ${b[1]}    ${b[2]}
+    ${d}    Create Dictionary    key=cc    foo=bar
+    Log Many    ${d.key}
+    ${f}    Create Dictionary    kk    cat    fo    ss
+    Log Many    ${f}    &{f}[kk]
+
+Case_02
+    Open Excel    C:${/}Users${/}Administrator${/}Desktop${/}excel.xls    #绝对路径
+    Comment    ${x}    Get Column Values    Sheet1    1
+    Comment    ${y}    Get Row Values    Sheet1    0
+    Comment    Log    遍历
+    ${x}    Get Row Count    Sheet1
+    : FOR    ${i}    IN RANGE    ${x}
+    \    ${y}    Get Row Values    Sheet1    ${i}
+    \    Log Many    ${y[0][1]}    ${y[2][1]}    ${y[2][0]}

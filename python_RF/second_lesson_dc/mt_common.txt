@@ -1,0 +1,23 @@
+﻿*** Settings ***
+Library           SeleniumLibrary
+Library           OperatingSystem
+Library           DatabaseLibrary
+
+*** Variables ***
+${IP}             192.168.00000
+
+*** Keywords ***
+Setup
+    Log    1.连接数据库
+    OperatingSystem.Run    taskkill /f /im chromedriver.exe
+    Comment    Connect To Database    pymysql    scott    tester    passwd    ${IP}
+    ...    3306    utf8
+    Log    2.清除数据库里面的数据
+    Comment    Execute Sql String    delete from order_item;
+    Log    4.输入网址
+    Open Browser    http://${IP}/mt/    chrome
+
+Teardown
+    Comment    Disconnect From Database
+    Sleep    3
+    Close Browser
