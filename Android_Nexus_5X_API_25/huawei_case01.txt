@@ -1,0 +1,226 @@
+*** Settings ***
+Test Setup        setup
+Test Teardown     teardown
+Library           AppiumLibrary
+Resource          Common.txt
+
+*** Test Cases ***
+test_01
+    [Setup]
+    Comment    Open Application    http://localhost:4723/wd/hub    platformName=Android    platformVersion=7.1.1    deviceName=emulator-5554    app=E:${/}BaiduNetdiskDownload${/}app-release.apk
+    ...    appPackage=com.amazonaws.devicefarm.android.referenceapp    appActivity=.Activities.MainActivity
+    log    2.点击导航
+    Wait Until Element Is Visible    accessibility_id=ReferenceApp
+    Click Element    accessibility_id=ReferenceApp
+    log    3.点击home
+    Wait Until Element Is Visible    xpath=(//android.widget.TextView[@content-desc=\"Row Category Name\"])[1]
+    Click Element    xpath=(//android.widget.TextView[@content-desc=\"Row Category Name\"])[1]
+    log \ \ \    4.点击导航按钮
+    Wait Until Element Is Visible    class=android.widget.ImageButton
+    Click Element    class=android.widget.ImageButton
+    ${X}    Get Webelements    css=android.widget.ImageView
+    : FOR    ${i}    IN    @{X}
+    \    Log    ${i}
+    Sleep    3
+    Comment    Close Application
+    [Teardown]
+
+Home
+    Log    点击home
+    Wait Until Element Is Visible    class=android.widget.TextView
+    Click Element    class=android.widget.TextView
+    Sleep    3
+
+Web
+    Log    点击home
+    Wait Until Element Is Visible    xpath=(//android.widget.TextView[@content-desc="Row Category Name"])[2]
+    Click Element    xpath=(//android.widget.TextView[@content-desc="Row Category Name"])[2]
+    Sleep    3
+    ${x}    Get Contexts
+    log    ${x}
+    Switch To Context    ${x[-1]}    #WEBVIEW_com.amazonaws.devicefarm.android.referenceapp
+    Wait Until Element Is Visible    id=nav-search-keywords
+    Input Text    id=nav-search-keywords    http://www.baidu.com
+    Click Element    css=div[class='nav-search-submit']>input
+
+native_compents
+    Log    点击native_componets
+    Wait Until Element Is Visible    xpath=(//android.widget.TextView[@content-desc=\"Row Category Name\"])[3]
+    Click Element    xpath=(//android.widget.TextView[@content-desc=\"Row Category Name\"])[3]
+    Comment    PAUSE
+    Comment    Click Element    Android=new UiSelector().text("Content Scrolling")
+    Swipe    494    264    1005    264
+    Comment    PAUSE
+    Sleep    3
+    Comment    Click Element    Android=new UiSelector().text("Video Player")
+
+Input_Controls
+    Log    点击input_Controls
+    Wait Until Element Is Visible    Android=new UiSelector().text("Input Controls")
+    Click Element    Android=new UiSelector().text("Input Controls")
+    Sleep    3
+    Input Text    Android=new UiSelector().text("Enter Text")    cathy wu
+    Page Should Contain Text    cathy wu
+    Sleep    3
+    Comment    Comment    PAUSE
+    Click Element    Android=new UiSelector().text("Checkbox")
+    Click Element    id=com.amazonaws.devicefarm.android.referenceapp:id/input_checkbox
+    Page Should Contain Text    Checked
+    Sleep    3
+    Click Element    Android=new UiSelector().text("Radio Buttons")
+    ${x}    Get Text    id=com.amazonaws.devicefarm.android.referenceapp:id/input_radio_button_display
+    Page Should Contain Text    ${x}    Amazon
+    Click Element    Android=new UiSelector().text("Services")
+    ${x}    Get Text    id=com.amazonaws.devicefarm.android.referenceapp:id/input_radio_button_display
+    Page Should Contain Text    ${x}    Services
+    Click Element    Android=new UiSelector().text("Toggle Button")
+    Click Element    id=com.amazonaws.devicefarm.android.referenceapp:id/input_switch
+    Click Element    Android=new UiSelector().text("Spinner")
+    ${y}    Get Text    accessibility_id=Spinner Display
+    Page Should Contain Text    ${y}    option 1
+    Click Element    id=com.amazonaws.devicefarm.android.referenceapp:id/input_spinner
+    Sleep    3
+    ${Webelement}    Get Webelements    Android=new UiSelector().textContains("option")
+    : FOR    ${i}    IN    @{Webelement}
+    \    log    ${i}
+    Comment    ${count}    Get Count    Android=new UiSelector().textContains("option")    session
+    Comment    Should Be True    ${count}==6
+    Comment    Comment    PAUSE
+    Click Element    Android=new UiSelector().text("option 4")
+    ${z}    Get Text    accessibility_id=Spinner Display
+    Page Should Contain Text    ${z}    option 4
+    Click Element    Android=new UiSelector().text("Pull To Refresh")
+    ${k}    Get Text    id=com.amazonaws.devicefarm.android.referenceapp:id/input_refresh_display
+    log    ${k}
+    Swipe    449    561    449    1381
+    Sleep    3
+    Comment    PAUSE
+    Swipe    1064    812    164    812
+    Sleep    3
+    Comment    Sleep    3
+    Comment    ${m}    Get Text    id=android:id/date_picker_header_date
+    Comment    ${n}    Get Text    id=com.amazonaws.devicefarm.android.referenceapp:id/input_date_display
+    ${l}    Get Text    id=android:id/time_header
+    ${m}    Get Text    id=com.amazonaws.devicefarm.android.referenceapp:id/input_time_display
+    Click Element    xpath=//android.widget.RadialTimePickerView.RadialPickerTouchHelper[@content-desc="3"]
+    Sleep    3
+    ${l10}    Get Text    id=android:id/time_header
+    ${m0}    Get Text    id=com.amazonaws.devicefarm.android.referenceapp:id/input_time_display
+    Comment    下列for循环是连续向左划八次
+    Comment    Comment    : FOR    ${bb}    IN RANGE    9
+    Comment    \    Swipe    929    1026    139    1201
+    Comment    sleep    3
+    Comment    下列是Date picker，也未调通
+    Comment    log    获取当前日期（第一次）
+    Comment    ${n}    Get Text    id=android:id/date_picker_header_date
+    Comment    log    获取下面日期（第一次）
+    Comment    ${o}    Get Text    id=com.amazonaws.devicefarm.android.referenceapp:id/input_date_display
+    Comment    Comment    PAUSE
+    Comment    Comment    Wait Until Element Is Visible    accessibility_id=30 August 1994    30 August 1994    xpath=//android.view.View[@content-desc="30 September 1994"]
+    Comment    Comment    Click Element    accessibility_id=30 August 1994
+    Comment    Sleep    3
+    Comment    log    获取当前日期（点击后）
+    Comment    ${n0}    Get Text    id=android:id/date_picker_header_date
+    Comment    log    获取下面日期（点击后）
+    Comment    ${o0}    Get Text    id=com.amazonaws.devicefarm.android.referenceapp:id/input_date_display
+    Swipe    967    1105    63    946
+    Swipe    967    1105    63    946
+    sleep    3
+    Wait Until Element Is Visible    Android=new UiSelector().text("SUBMIT")
+    ${aa}    Get Text    Android=new UiSelector().text("SUBMIT")
+    Should Be Equal As Strings    ${aa}    SUBMIT
+    Click Element    id=com.amazonaws.devicefarm.android.referenceapp:id/input_submit_button
+    Swipe    967    1105    63    946
+    sleep    5
+    Wait Until Element Is Visible    Android=new UiSelector().text("Gestures")
+    Click Element    Android=new UiSelector().text("Swipe here")
+    ${cc}    Get Text    id=com.amazonaws.devicefarm.android.referenceapp:id/input_gesture_content
+    Page Should Not Contain Text    ${cc}    Single Tap Up
+    Comment    下列代码跑不通
+    Comment    Comment    Comment    PAUSE
+    Comment    Swipe    519    1496    597    579
+    Comment    Comment    Comment    PAUSE
+    Comment    sleep    5
+    Comment    ${dd}    Get Text    id=com.amazonaws.devicefarm.android.referenceapp:id/input_gesture_content
+    Comment    Page Should Contain Text    ${dd}    Fling
+
+Nested_Views
+    Log    点击Nested Views
+    Click Element    Android=new UiSelector().text("Nested Views")
+    Sleep    2
+    Comment    点击选项1：UP NAVIGATION
+    Comment    ${x}    Get Text    id=com.amazonaws.devicefarm.android.referenceapp:id/nested_up_button
+    Comment    Page Should Contain Text    ${x}    UP NAVIGATION
+    Comment    Click Element    id=com.amazonaws.devicefarm.android.referenceapp:id/nested_up_button
+    Comment    ${y}    Get Text    id=com.amazonaws.devicefarm.android.referenceapp:id/up_navigation_content_text
+    Comment    Page Should Contain Text    ${y}    Press
+    Comment    Wait Until Keyword Succeeds    30    2    Click Element    Android=new UiSelector().text("NEXT LEVEL")
+    Comment    ${z}    Get Text    accessibility_id=toolbar title
+    Comment    Page Should Contain Text    ${z}    Final Level
+    Comment    ${l}    Get Element Attribute    id=com.amazonaws.devicefarm.android.referenceapp:id/up_navigation_content_text    text
+    Comment    Element Should Contain Text    id=com.amazonaws.devicefarm.android.referenceapp:id/up_navigation_content_text    Final Level
+    Comment    点击选项2：BACK NAVIGATION
+    Wait Until Keyword Succeeds    30    2    Click Element    id=com.amazonaws.devicefarm.android.referenceapp:id/nested_back_button
+    Sleep    3
+    ${x1}    Get Element Attribute    id=com.amazonaws.devicefarm.android.referenceapp:id/back_navigation_counter    text
+    Element Should Contain Text    id=com.amazonaws.devicefarm.android.referenceapp:id/back_navigation_counter    1
+    Comment    Click Element    id=com.amazonaws.devicefarm.android.referenceapp:id/back_navigation_next_button
+    Comment    ${x2}    Get Element Attribute    id=com.amazonaws.devicefarm.android.referenceapp:id/back_navigation_counter    text
+    Comment    Element Should Contain Text    id=com.amazonaws.devicefarm.android.referenceapp:id/back_navigation_counter    2
+    log    另一种方式，循环多次查看结果
+    : FOR    ${i}    IN RANGE    1    8
+    \    Click Element    id=com.amazonaws.devicefarm.android.referenceapp:id/back_navigation_next_button
+    ${x2}    Get Element Attribute    id=com.amazonaws.devicefarm.android.referenceapp:id/back_navigation_counter    text
+    Element Should Contain Text    id=com.amazonaws.devicefarm.android.referenceapp:id/back_navigation_counter    8
+
+Crash_bug
+    Log    点击Crash/bug
+    Click Element    Android=new UiSelector().text("Crash/Bug")
+    Sleep    2
+    ${x}    Get Text    id=com.amazonaws.devicefarm.android.referenceapp:id/bug_fragment_message
+    Page Should Contain Text    ${x}    Pressing this button will crash the app
+    Click Element    Android=new UiSelector().text("CRASH")
+    Wait Until Element Is Visible    Android=new UiSelector().text("ReferenceApp has stopped")
+    ${y}    Get Text    Android=new UiSelector().text("ReferenceApp has stopped")
+    Page Should Contain Text    ${y}    ReferenceApp has stopped
+    ${z}    Get Text    Android=new UiSelector().text("Open app again")
+    Page Should Contain Text    ${z}    Open app again
+    Click Element    Android=new UiSelector().text("Open app again")
+
+Alerts
+    Log    点击Alerts
+    Click Element    Android=new UiSelector().text("Alerts")
+    Sleep    2
+    Comment    log    1.点击Toast
+    Comment    Click Element    id=com.amazonaws.devicefarm.android.referenceapp:id/notifications_toast_button
+    Comment    Wait Until Page Contains Element    xpath=//*[@text="Toast"]
+    Comment    ${x}    Get Text    xpath=//*[@text="Toast"]
+    Comment    Comment    PAUSE
+    Comment    log    2.点击Alert
+    Click Element    id=com.amazonaws.devicefarm.android.referenceapp:id/notifications_alert_button
+    sleep    5
+    Wait Until Page Contains Element    class=android.widget.FrameLayout
+    Sleep    3
+    Click Element    id=android:id/button1
+    Sleep    5
+
+Login_Page
+    Log    点击Login Page
+    Click Element    Android=new UiSelector().text("Login Page")
+    Sleep    2
+    Clear Text    id=com.amazonaws.devicefarm.android.referenceapp:id/username_text_input
+    Input Text    id=com.amazonaws.devicefarm.android.referenceapp:id/username_text_input    cathy
+    Clear Text    id=com.amazonaws.devicefarm.android.referenceapp:id/password_text_input
+    Input Text    id=com.amazonaws.devicefarm.android.referenceapp:id/password_text_input    123456
+    Click Element    Android=new UiSelector().text("LOGIN")
+    Wait Until Page Contains Element    id=com.amazonaws.devicefarm.android.referenceapp:id/alt_button
+    ${x}    Get Text    Android=new UiSelector().textContains("wrong")
+    Text Should Be Visible    ${x}    You gave me the wrong username and password
+    ${y}    Get Text    id=com.amazonaws.devicefarm.android.referenceapp:id/alt_button
+    Page Should Contain Text    ${y}    TRY AGAIN
+    ${y1}    Get Activity
+    ${y2}    Get Contexts
+    ${y3}    Get Element Attribute    Android=new UiSelector().textContains("wrong")    text
+    ${y4}    Get Appium SessionId
+    ${y5}    Get Element Location    Android=new UiSelector().textContains("wrong")
+    Click Element    id=com.amazonaws.devicefarm.android.referenceapp:id/alt_button

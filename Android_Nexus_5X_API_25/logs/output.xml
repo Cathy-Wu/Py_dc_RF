@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20180518 15:21:21.565" generator="Robot 3.0.2 (Python 2.7.14 on win32)">
+<suite source="F:\video_study\mendao\RF\Android\huawei" id="s1" name="Huawei">
+<suite source="F:\video_study\mendao\RF\Android\huawei\huawei_case01.txt" id="s1-s1" name="Huawei Case01">
+<test id="s1-s1-t1" name="Login_Page">
+<kw type="setup" name="setup" library="Common">
+<kw name="Open Application" library="AppiumLibrary">
+<doc>Opens a new application to given Appium server.</doc>
+<arguments>
+<arg>${url}</arg>
+<arg>platformName=Android</arg>
+<arg>platformVersion=7.1.1</arg>
+<arg>deviceName=emulator-5554</arg>
+<arg>app=E:${/}BaiduNetdiskDownload${/}app-release.apk</arg>
+<arg>appPackage=com.amazonaws.devicefarm.android.referenceapp</arg>
+<arg>appActivity=.Activities.MainActivity</arg>
+<arg>chromedriverExecutable=F:\\video_study\\mendao\\RF\\Android\\huawei${/}chromedriver_28.exe</arg>
+<arg>automationName=UiAutomator2</arg>
+</arguments>
+<status status="PASS" endtime="20180518 15:21:36.005" starttime="20180518 15:21:21.779"></status>
+</kw>
+<kw name="Comment" library="BuiltIn">
+<doc>Displays the given messages in the log file as keyword arguments.</doc>
+<arguments>
+<arg>Wait Until Element Is Visible</arg>
+<arg>accessibility_id=ReferenceApp</arg>
+</arguments>
+<status status="PASS" endtime="20180518 15:21:36.006" starttime="20180518 15:21:36.005"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>5</arg>
+</arguments>
+<msg timestamp="20180518 15:21:41.006" level="INFO">Slept 5 seconds</msg>
+<status status="PASS" endtime="20180518 15:21:41.007" starttime="20180518 15:21:36.006"></status>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>accessibility_id=ReferenceApp</arg>
+</arguments>
+<msg timestamp="20180518 15:21:41.010" level="INFO">Clicking element 'accessibility_id=ReferenceApp'.</msg>
+<status status="PASS" endtime="20180518 15:21:41.097" starttime="20180518 15:21:41.008"></status>
+</kw>
+<status status="PASS" endtime="20180518 15:21:41.098" starttime="20180518 15:21:21.779"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>点击Login Page</arg>
+</arguments>
+<msg timestamp="20180518 15:21:41.098" level="INFO">点击Login Page</msg>
+<status status="PASS" endtime="20180518 15:21:41.099" starttime="20180518 15:21:41.098"></status>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>Android=new UiSelector().text("Login Page")</arg>
+</arguments>
+<msg timestamp="20180518 15:21:41.099" level="INFO">Clicking element 'Android=new UiSelector().text("Login Page")'.</msg>
+<status status="PASS" endtime="20180518 15:21:43.254" starttime="20180518 15:21:41.099"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<msg timestamp="20180518 15:21:45.256" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20180518 15:21:45.256" starttime="20180518 15:21:43.255"></status>
+</kw>
+<kw name="Clear Text" library="AppiumLibrary">
+<doc>Clears the text field identified by `locator`.</doc>
+<arguments>
+<arg>id=com.amazonaws.devicefarm.android.referenceapp:id/username_text_input</arg>
+</arguments>
+<msg timestamp="20180518 15:21:45.258" level="INFO">Clear text field 'id=com.amazonaws.devicefarm.android.referenceapp:id/username_text_input'</msg>
+<status status="PASS" endtime="20180518 15:21:45.741" starttime="20180518 15:21:45.257"></status>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>id=com.amazonaws.devicefarm.android.referenceapp:id/username_text_input</arg>
+<arg>cathy</arg>
+</arguments>
+<msg timestamp="20180518 15:21:45.742" level="INFO">Typing text 'cathy' into text field 'id=com.amazonaws.devicefarm.android.referenceapp:id/username_text_input'</msg>
+<status status="PASS" endtime="20180518 15:21:46.932" starttime="20180518 15:21:45.742"></status>
+</kw>
+<kw name="Clear Text" library="AppiumLibrary">
+<doc>Clears the text field identified by `locator`.</doc>
+<arguments>
+<arg>id=com.amazonaws.devicefarm.android.referenceapp:id/password_text_input</arg>
+</arguments>
+<msg timestamp="20180518 15:21:46.934" level="INFO">Clear text field 'id=com.amazonaws.devicefarm.android.referenceapp:id/password_text_input'</msg>
+<status status="PASS" endtime="20180518 15:21:47.826" starttime="20180518 15:21:46.933"></status>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>id=com.amazonaws.devicefarm.android.referenceapp:id/password_text_input</arg>
+<arg>123456</arg>
+</arguments>
+<msg timestamp="20180518 15:21:47.827" level="INFO">Typing text '123456' into text field 'id=com.amazonaws.devicefarm.android.referenceapp:id/password_text_input'</msg>
+<status status="PASS" endtime="20180518 15:21:48.600" starttime="20180518 15:21:47.826"></status>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>Android=new UiSelector().text("LOGIN")</arg>
+</arguments>
+<msg timestamp="20180518 15:21:48.601" level="INFO">Clicking element 'Android=new UiSelector().text("LOGIN")'.</msg>
+<status status="PASS" endtime="20180518 15:21:49.937" starttime="20180518 15:21:48.600"></status>
+</kw>
+<kw name="Wait Until Page Contains Element" library="AppiumLibrary">
+<doc>Waits until element specified with `locator` appears on current page.</doc>
+<arguments>
+<arg>id=com.amazonaws.devicefarm.android.referenceapp:id/alt_button</arg>
+</arguments>
+<status status="PASS" endtime="20180518 15:21:49.970" starttime="20180518 15:21:49.938"></status>
+</kw>
+<kw name="Get Text" library="AppiumLibrary">
+<doc>Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)</doc>
+<arguments>
+<arg>Android=new UiSelector().textContains("wrong")</arg>
+</arguments>
+<assign>
+<var>${x}</var>
+</assign>
+<msg timestamp="20180518 15:21:50.019" level="INFO">Element 'Android=new UiSelector().textContains("wrong")' text is 'You gave me the wrong username and password' </msg>
+<msg timestamp="20180518 15:21:50.019" level="INFO">${x} = You gave me the wrong username and password</msg>
+<status status="PASS" endtime="20180518 15:21:50.020" starttime="20180518 15:21:49.971"></status>
+</kw>
+<kw name="Text Should Be Visible" library="AppiumLibrary">
+<doc>Verifies that element identified with text is visible.</doc>
+<arguments>
+<arg>${x}</arg>
+<arg>You gave me the wrong username and password</arg>
+</arguments>
+<status status="PASS" endtime="20180518 15:21:50.056" starttime="20180518 15:21:50.020"></status>
+</kw>
+<kw name="Get Text" library="AppiumLibrary">
+<doc>Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)</doc>
+<arguments>
+<arg>id=com.amazonaws.devicefarm.android.referenceapp:id/alt_button</arg>
+</arguments>
+<assign>
+<var>${y}</var>
+</assign>
+<msg timestamp="20180518 15:21:50.078" level="INFO">Element 'id=com.amazonaws.devicefarm.android.referenceapp:id/alt_button' text is 'TRY AGAIN' </msg>
+<msg timestamp="20180518 15:21:50.078" level="INFO">${y} = TRY AGAIN</msg>
+<status status="PASS" endtime="20180518 15:21:50.078" starttime="20180518 15:21:50.056"></status>
+</kw>
+<kw name="Page Should Contain Text" library="AppiumLibrary">
+<doc>Verifies that current page contains `text`.</doc>
+<arguments>
+<arg>${y}</arg>
+<arg>TRY AGAIN</arg>
+</arguments>
+<msg timestamp="20180518 15:21:50.122" level="INFO">Current page contains text 'TRY AGAIN'.</msg>
+<status status="PASS" endtime="20180518 15:21:50.122" starttime="20180518 15:21:50.079"></status>
+</kw>
+<kw name="Get Activity" library="AppiumLibrary">
+<doc>Retrieves the current activity on the device.</doc>
+<assign>
+<var>${y1}</var>
+</assign>
+<msg timestamp="20180518 15:21:50.242" level="INFO">${y1} = .Activities.MainActivity</msg>
+<status status="PASS" endtime="20180518 15:21:50.242" starttime="20180518 15:21:50.123"></status>
+</kw>
+<kw name="Get Contexts" library="AppiumLibrary">
+<doc>Get available contexts.</doc>
+<assign>
+<var>${y2}</var>
+</assign>
+<msg timestamp="20180518 15:21:50.342" level="INFO">[u'NATIVE_APP']</msg>
+<msg timestamp="20180518 15:21:50.342" level="INFO">${y2} = [u'NATIVE_APP']</msg>
+<status status="PASS" endtime="20180518 15:21:50.342" starttime="20180518 15:21:50.243"></status>
+</kw>
+<kw name="Get Element Attribute" library="AppiumLibrary">
+<doc>Get element attribute using given attribute: name, value,...</doc>
+<arguments>
+<arg>Android=new UiSelector().textContains("wrong")</arg>
+<arg>text</arg>
+</arguments>
+<assign>
+<var>${y3}</var>
+</assign>
+<msg timestamp="20180518 15:21:50.371" level="INFO">Element 'Android=new UiSelector().textContains("wrong")' attribute 'text' value 'You gave me the wrong username and password' </msg>
+<msg timestamp="20180518 15:21:50.371" level="INFO">${y3} = You gave me the wrong username and password</msg>
+<status status="PASS" endtime="20180518 15:21:50.371" starttime="20180518 15:21:50.343"></status>
+</kw>
+<kw name="Get Appium SessionId" library="AppiumLibrary">
+<doc>Returns the current session ID as a reference</doc>
+<assign>
+<var>${y4}</var>
+</assign>
+<msg timestamp="20180518 15:21:50.372" level="INFO">Appium Session ID: d64da027-d91d-4c4f-867b-b53e35be6549</msg>
+<msg timestamp="20180518 15:21:50.372" level="INFO">${y4} = d64da027-d91d-4c4f-867b-b53e35be6549</msg>
+<status status="PASS" endtime="20180518 15:21:50.372" starttime="20180518 15:21:50.371"></status>
+</kw>
+<kw name="Get Element Location" library="AppiumLibrary">
+<doc>Get element location</doc>
+<arguments>
+<arg>Android=new UiSelector().textContains("wrong")</arg>
+</arguments>
+<assign>
+<var>${y5}</var>
+</assign>
+<msg timestamp="20180518 15:21:50.396" level="INFO">Element 'Android=new UiSelector().textContains("wrong")' location: {'y': 441.0, 'x': 0.0} </msg>
+<msg timestamp="20180518 15:21:50.396" level="INFO">${y5} = {'y': 441.0, 'x': 0.0}</msg>
+<status status="PASS" endtime="20180518 15:21:50.397" starttime="20180518 15:21:50.372"></status>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>id=com.amazonaws.devicefarm.android.referenceapp:id/alt_button</arg>
+</arguments>
+<msg timestamp="20180518 15:21:50.397" level="INFO">Clicking element 'id=com.amazonaws.devicefarm.android.referenceapp:id/alt_button'.</msg>
+<status status="PASS" endtime="20180518 15:21:50.420" starttime="20180518 15:21:50.397"></status>
+</kw>
+<kw type="teardown" name="teardown" library="Common">
+<kw name="Close All Applications" library="AppiumLibrary">
+<doc>Closes all open applications.</doc>
+<status status="PASS" endtime="20180518 15:21:50.916" starttime="20180518 15:21:50.421"></status>
+</kw>
+<status status="PASS" endtime="20180518 15:21:50.917" starttime="20180518 15:21:50.421"></status>
+</kw>
+<status status="PASS" endtime="20180518 15:21:50.917" critical="yes" starttime="20180518 15:21:21.779"></status>
+</test>
+<status status="PASS" endtime="20180518 15:21:50.918" starttime="20180518 15:21:21.602"></status>
+</suite>
+<status status="PASS" endtime="20180518 15:21:50.920" starttime="20180518 15:21:21.580"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Huawei" pass="1">Huawei</stat>
+<stat fail="0" id="s1-s1" name="Huawei Case01" pass="1">Huawei.Huawei Case01</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

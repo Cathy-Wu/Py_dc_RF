@@ -1,0 +1,16 @@
+*** Settings ***
+Library           AppiumLibrary
+
+*** Variables ***
+${url}            http://localhost:4723/wd/hub
+
+*** Keywords ***
+setup
+    Open Application    ${url}    platformName=Android    platformVersion=7.1.1    deviceName=emulator-5554    app=E:${/}BaiduNetdiskDownload${/}app-release.apk    appPackage=com.amazonaws.devicefarm.android.referenceapp
+    ...    appActivity=.Activities.MainActivity    chromedriverExecutable=${CURDIR}${/}chromedriver_28.exe    automationName=UiAutomator2    #unicodeKeyboard=True    resetKeyboard=True
+    Comment    Wait Until Element Is Visible    accessibility_id=ReferenceApp
+    sleep    5
+    AppiumLibrary.Click Element    accessibility_id=ReferenceApp
+
+teardown
+    Close All Applications
